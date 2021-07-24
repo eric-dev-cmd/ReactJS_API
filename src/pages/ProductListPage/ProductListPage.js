@@ -4,6 +4,8 @@ import ProductList from "./../../components/ProductList/ProductList";
 import { connect } from "react-redux";
 import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
+import { actFetchProducts } from "./../../actions/index";
+import products from "../../reducers/products";
 
 // import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
@@ -16,10 +18,9 @@ class ProductListPage extends Component {
   }
   // Lifecycle goi ngay khi component render lan dau tien
   componentDidMount() {
+    var { fetchAllProducts } = this.props;
     callApi("products", "GET", null).then((res) => {
-      this.setState({
-        products: res.data,
-      });
+      fetchAllProducts(res.data);
     });
   }
   onHandleDelete = (id) => {
@@ -48,7 +49,7 @@ class ProductListPage extends Component {
     return result;
   };
   render() {
-    var { products } = this.state;
+    var { products } = this.props;
     console.log(products);
     // console.log("render");
     // var { products } = this.props;
@@ -102,4 +103,12 @@ const mapStateToProps = (state) => {
     products: state.products,
   };
 };
-export default connect(mapStateToProps, null)(ProductListPage);
+//Save on store
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    fetchAllProducts: (products) => {
+      dispatch(actFetchProducts(products));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListPage);
