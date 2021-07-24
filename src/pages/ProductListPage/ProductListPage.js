@@ -2,13 +2,25 @@ import { Component } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductList from "./../../components/ProductList/ProductList";
 import { connect } from "react-redux";
+import axios from "axios";
 
 // import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class ProductListPage extends Component {
   render() {
-    // var products = [];
-    var { products } = this.props;
+    var products = [];
+    // var { products } = this.props;
+    axios({
+      method: "GET",
+      url: "http://localhost:3000/products",
+      data: null,
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     return (
       <div>
