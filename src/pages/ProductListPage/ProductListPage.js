@@ -2,7 +2,7 @@ import { Component } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductList from "./../../components/ProductList/ProductList";
 import { connect } from "react-redux";
-import axios from "axios";
+import callApi from "./../../utils/apiCaller";
 
 // import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
@@ -15,19 +15,11 @@ class ProductListPage extends Component {
   }
   // Lifecycle goi ngay khi component render lan dau tien
   componentDidMount() {
-    axios({
-      method: "GET",
-      url: "http://localhost:3000/products",
-      data: null,
-    })
-      .then((res) => {
-        this.setState({
-          products: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    callApi("products", "GET", null).then((res) => {
+      this.setState({
+        products: res.data,
       });
+    });
   }
   render() {
     var { products } = this.state;

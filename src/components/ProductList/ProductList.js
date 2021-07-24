@@ -10,7 +10,7 @@ class ProductList extends Component {
           Product Management
         </div>
         <div className="card-body">
-          <table class="table table-hover table-bordered">
+          <table className="table table-hover table-bordered">
             <thead>
               <tr>
                 <th scope="col">STT</th>

@@ -18,7 +18,7 @@ class ProductItem extends Component {
         <td>{product.name}</td>
         <td>{product.price}</td>
         <td>
-          <span class={`badge bg-${statusClass}`}>{statusName}</span>
+          <span className={`badge bg-${statusClass}`}>{statusName}</span>
         </td>
         <td>
           {" "}
