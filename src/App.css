@@ -32,7 +32,195 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.my-input-container {
+  position: relative;
+  transition: 0.3s;
+}
+
+.my-input-text {
+  border: thin solid #dddddd;
+  border-radius: 3px;
+  height: 35px;
+  transition: 0.3s;
+}
+
+.my-input-label {
+  font-size: 17px;
+  color: #dddddd;
+  left: 15px;
+  top: 3px;
+  position: absolute;
+  z-index: 9;
+  user-select: none;
+  transition: 0.3s;
+
+}
+
+.my-input-text:focus+.my-input-label {
+  top: -12px;
+  left: 15px;
+  font-size: 15px;
+  color: rgba(5, 5, 5, 0.836);
+  background-color: white;
+}
+
+.my-input-text:not(:placeholder-shown).my-input-text:not(:focus)+.my-input-label {
+  top: -12px;
+  left: 15px;
+  font-size: 15px;
+  color: blue;
+  background-color: white;
+}
+
+.my-input-text:focus {
+  border: 3px solid rgb(182, 10, 53);
+  outline: none;
+}
+
+.group {
+  position: relative;
+  margin-bottom: 45px;
+}
+
+input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* LABEL ======================================= */
+label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+input:focus~label,
+input:valid~label {
+  top: -20px;
+  font-size: 14px;
+  color: #080808;
+}
+
+/* BOTTOM BARS ================================= */
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.bar:before,
+.bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #110101;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+/* active state */
+input:focus~.bar:before,
+input:focus~.bar:after {
+  width: 50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* active state */
+input:focus~.highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #8a0214;
+  }
+
+  to {
+    width: 100%;
+    background: transparent;
+  }
+}
+
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #ac0235;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: #a10527;
+  }
+
+  to {
+    width: 100%;
+    background: transparent;
+  }
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.status-add {
+  left: -255px;
+  top: 8px;
+  position: relative;
+}
+
+.status-span {
+  left: -215px;
+  top: -11px;
+  position: relative;
 }

@@ -1,0 +1,3 @@
+Containers => connect vs redux
+Pages => Mỗi routers có 1 page riêng (Trong page chứa nhiều components)
+Utils => nơi chứa các hàm gọi api
