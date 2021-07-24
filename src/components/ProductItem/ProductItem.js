@@ -3,12 +3,21 @@ import { Component } from "react";
 // import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class ProductItem extends Component {
+  onHandleDelete = (id) => {
+    var { onHandleDelete } = this.props;
+
+    if (window.confirm("Delete the item?")) {
+      onHandleDelete(id);
+    }
+  };
   render() {
     var { product, index } = this.props;
+    // console.log(product);
     // console.log(product.status);
-    var statusName = product.status ? "stocking" : "out of stocking";
-    // console.log(statusName);
-    var statusClass = product.status ? "danger" : "secondary";
+    var statusName =
+      product.chkStatus === true ? "stocking" : "out of stocking";
+    var statusClass =
+      product.chkStatus === true ? "badge bg-danger" : "badge bg-secondary";
     // console.log(statusClass);
 
     return (
@@ -18,7 +27,7 @@ class ProductItem extends Component {
         <td>{product.name}</td>
         <td>{product.price}</td>
         <td>
-          <span className={`badge bg-${statusClass}`}>{statusName}</span>
+          <span className={statusClass}>{statusName}</span>
         </td>
         <td>
           {" "}
@@ -26,7 +35,11 @@ class ProductItem extends Component {
             <i className="far fa-user-edit me-2"></i>Update
           </button>
           &nbsp;
-          <button type="button" className="btn btn-sm btn-danger">
+          <button
+            type="button"
+            className="btn btn-sm btn-danger"
+            onClick={() => this.onHandleDelete(product.id)}
+          >
             <i className="far fa-trash me-2"></i>Delete
           </button>
         </td>
