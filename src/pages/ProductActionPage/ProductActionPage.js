@@ -22,17 +22,30 @@ class ProductActionPage extends Component {
     });
   };
   onHandleSubmit = (event) => {
-    var { txtName, txtPrice, chkStatus } = this.state;
+    var { id, txtName, txtPrice, chkStatus } = this.state;
     var { history } = this.props;
     event.preventDefault();
-    callApi("products", "POST", {
-      name: txtName,
-      price: txtPrice,
-      chkStatus: chkStatus,
-    }).then((res) => {
-      console.log(res.data);
-      history.goBack();
-    });
+    if (id) {
+      console.log("update ban oi!");
+      callApi(`products/${id}`, "PUT", {
+        name: txtName,
+        price: txtPrice,
+        chkStatus: chkStatus,
+      }).then((res) => {
+        console.log(res.data);
+
+        history.goBack();
+      });
+    } else {
+      callApi("products", "POST", {
+        name: txtName,
+        price: txtPrice,
+        chkStatus: chkStatus,
+      }).then((res) => {
+        console.log(res.data);
+        history.goBack();
+      });
+    }
   };
   componentDidMount() {
     var { match } = this.props;
