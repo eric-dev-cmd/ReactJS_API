@@ -7,20 +7,32 @@ import axios from "axios";
 // import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class ProductListPage extends Component {
-  render() {
-    var products = [];
-    // var { products } = this.props;
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+    };
+  }
+  // Lifecycle goi ngay khi component render lan dau tien
+  componentDidMount() {
     axios({
       method: "GET",
       url: "http://localhost:3000/products",
       data: null,
     })
       .then((res) => {
-        console.log(res.data);
+        this.setState({
+          products: res.data,
+        });
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+  render() {
+    var { products } = this.state;
+    // console.log("render");
+    // var { products } = this.props;
 
     return (
       <div>

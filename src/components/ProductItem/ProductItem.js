@@ -5,11 +5,11 @@ import { Component } from "react";
 class ProductItem extends Component {
   render() {
     var { product, index } = this.props;
-    console.log(product.status);
+    // console.log(product.status);
     var statusName = product.status ? "stocking" : "out of stocking";
-    console.log(statusName);
+    // console.log(statusName);
     var statusClass = product.status ? "danger" : "secondary";
-    console.log(statusClass);
+    // console.log(statusClass);
 
     return (
       <tr>

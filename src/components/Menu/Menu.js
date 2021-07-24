@@ -14,7 +14,7 @@ const menus = [
     exact: false,
   },
 ];
-console.log(menus);
+// console.log(menus);
 
 const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
   return (
