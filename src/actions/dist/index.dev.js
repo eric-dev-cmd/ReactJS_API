@@ -5,13 +5,27 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.actFetchProducts = void 0;
+exports.actFetchProducts = exports.actFetchProductsRequestAPI = void 0;
 
 var Types = _interopRequireWildcard(require("./../constants/ActionTypes"));
+
+var _apiCaller = _interopRequireDefault(require("./../utils/apiCaller"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var actFetchProductsRequestAPI = function actFetchProductsRequestAPI() {
+  return function (dispatch) {
+    return (0, _apiCaller["default"])("products", "GET", null).then(function (res) {
+      dispatch(actFetchProducts(res.data));
+    });
+  };
+};
+
+exports.actFetchProductsRequestAPI = actFetchProductsRequestAPI;
 
 var actFetchProducts = function actFetchProducts(products) {
   return {

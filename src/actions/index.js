@@ -1,4 +1,13 @@
 import * as Types from "./../constants/ActionTypes";
+import callApi from "./../utils/apiCaller";
+
+export const actFetchProductsRequestAPI = () => {
+  return (dispatch) => {
+    return callApi("products", "GET", null).then((res) => {
+      dispatch(actFetchProducts(res.data));
+    });
+  };
+};
 
 export const actFetchProducts = (products) => {
   return {
