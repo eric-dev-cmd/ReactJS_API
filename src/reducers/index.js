@@ -1,3 +1,6 @@
 import { combineReducers } from "redux";
-const myReducers = combineReducers({});
+import products from "./products";
+const myReducers = combineReducers({
+  products,
+});
 export default myReducers;

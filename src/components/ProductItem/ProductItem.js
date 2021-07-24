@@ -5,8 +5,12 @@ import { Component } from "react";
 class ProductItem extends Component {
   render() {
     var { product, index } = this.props;
-    var { statusName } = product.status ? "stocking" : "out of stocking";
-    var { statusClass } = product.status ? "danger" : "warning";
+    console.log(product.status);
+    var statusName = product.status ? "stocking" : "out of stocking";
+    console.log(statusName);
+    var statusClass = product.status ? "danger" : "secondary";
+    console.log(statusClass);
+
     return (
       <tr>
         <th>{index + 1}</th>

@@ -1,12 +1,15 @@
 import { Component } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductList from "./../../components/ProductList/ProductList";
+import { connect } from "react-redux";
 
 // import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class ProductListPage extends Component {
   render() {
-    var products = [];
+    // var products = [];
+    var { products } = this.props;
+
     return (
       <div>
         <div className="row my-3 py-2">
@@ -49,5 +52,9 @@ class ProductListPage extends Component {
     return result;
   };
 }
-
-export default ProductListPage;
+const mapStateToProps = (state) => {
+  return {
+    products: state.products,
+  };
+};
+export default connect(mapStateToProps, null)(ProductListPage);
