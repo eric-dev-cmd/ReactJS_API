@@ -21,6 +21,13 @@ const routes = [
     main: ({ history }) => <ProductActionPage history={history} />,
   },
   {
+    path: "/product/:id/update",
+    exact: false,
+    main: ({ match, history }) => (
+      <ProductActionPage match={match} history={history} />
+    ),
+  },
+  {
     path: "",
     exact: false,
     main: () => <NotFoundPage />,

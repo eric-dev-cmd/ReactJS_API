@@ -8,8 +8,8 @@ class ProductActionPage extends Component {
     super(props);
     this.state = {
       id: "",
-      txtName: "test",
-      txtPrice: "123",
+      txtName: "",
+      txtPrice: "",
       chkStatus: false,
     };
   }
@@ -34,8 +34,25 @@ class ProductActionPage extends Component {
       history.goBack();
     });
   };
+  componentDidMount() {
+    var { match } = this.props;
+    if (match) {
+      var id = match.params.id;
+      callApi(`products/${id}`, "GET", null).then((res) => {
+        console.log(res.data);
+        var { data } = res;
+        this.setState({
+          id: data.id,
+          txtName: data.name,
+          txtPrice: data.price,
+          chkStatus: data.chkStatus,
+        });
+      });
+    }
+  }
   render() {
     var { txtName, txtPrice, chkStatus } = this.state;
+
     return (
       <div className="row my-3">
         <div className="col-12">
