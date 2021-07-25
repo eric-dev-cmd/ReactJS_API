@@ -16,7 +16,7 @@ class ProductItem extends Component {
     // console.log(product.status);
     var statusName = product.status === true ? "stocking" : "out of stocking";
     var statusClass =
-      product.status === true ? "badge bg-danger" : "badge bg-secondary";
+      product.status === true ? "badge bg-success" : "badge bg-dark";
     // console.log(statusClass);
 
     return (

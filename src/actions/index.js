@@ -48,3 +48,20 @@ export const actAddProduct = (product) => {
     product,
   };
 };
+
+// Edit product
+
+export const actGetProductRequestAPI = (id) => {
+  return (dispatch) => {
+    return callApi(`products/${id}`, "GET", null).then((res) => {
+      dispatch(actGetProduct(res.data));
+    });
+  };
+};
+//Get product in store
+export const actGetProduct = (product) => {
+  return {
+    type: Types.EDIT_PRODUCT,
+    product,
+  };
+};

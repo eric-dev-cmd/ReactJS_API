@@ -5,7 +5,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.actAddProduct = exports.actAddProductRequestAPI = exports.actDeleteProductRequestAPI = exports.actDeleteProduct = exports.actFetchProducts = exports.actFetchProductsRequestAPI = void 0;
+exports.actGetProduct = exports.actGetProductRequestAPI = exports.actAddProduct = exports.actAddProductRequestAPI = exports.actDeleteProductRequestAPI = exports.actDeleteProduct = exports.actFetchProducts = exports.actFetchProductsRequestAPI = void 0;
 
 var Types = _interopRequireWildcard(require("./../constants/ActionTypes"));
 
@@ -73,6 +73,27 @@ var actAddProduct = function actAddProduct(product) {
     type: Types.ADD_PRODUCT,
     product: product
   };
-};
+}; // Edit product
+
 
 exports.actAddProduct = actAddProduct;
+
+var actGetProductRequestAPI = function actGetProductRequestAPI(id) {
+  return function (dispatch) {
+    return (0, _apiCaller["default"])("products/".concat(id), "GET", null).then(function (res) {
+      dispatch(actGetProduct(res.data));
+    });
+  };
+}; //Get product in store
+
+
+exports.actGetProductRequestAPI = actGetProductRequestAPI;
+
+var actGetProduct = function actGetProduct(product) {
+  return {
+    type: Types.EDIT_PRODUCT,
+    product: product
+  };
+};
+
+exports.actGetProduct = actGetProduct;

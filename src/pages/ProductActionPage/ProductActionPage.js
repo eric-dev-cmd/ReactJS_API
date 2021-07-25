@@ -2,7 +2,11 @@ import { Component } from "react";
 import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { actAddProductRequestAPI } from "./../../actions/index";
+import {
+  actAddProductRequestAPI,
+  actGetProduct,
+  actGetProductRequestAPI,
+} from "./../../actions/index";
 
 class ProductActionPage extends Component {
   constructor(props) {
@@ -60,16 +64,17 @@ class ProductActionPage extends Component {
     var { match } = this.props;
     if (match) {
       var id = match.params.id;
-      callApi(`products/${id}`, "GET", null).then((res) => {
-        console.log(res.data);
-        var { data } = res;
-        this.setState({
-          id: data.id,
-          txtName: data.name,
-          txtPrice: data.price,
-          chkStatus: data.chkStatus,
-        });
-      });
+      // callApi(`products/${id}`, "GET", null).then((res) => {
+      //   console.log(res.data);
+      //   var { data } = res;
+      //   this.setState({
+      //     id: data.id,
+      //     txtName: data.name,
+      //     txtPrice: data.price,
+      //     chkStatus: data.chkStatus,
+      //   });
+      // });
+      this.props.fetchEditProduct(id);
     }
   }
   render() {
@@ -157,6 +162,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     fetchAddProduct: (product) => {
       dispatch(actAddProductRequestAPI(product));
+    },
+    fetchEditProduct: (id) => {
+      dispatch(actGetProductRequestAPI(id));
     },
   };
 };
