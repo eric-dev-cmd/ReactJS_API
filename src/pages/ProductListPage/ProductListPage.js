@@ -2,7 +2,6 @@ import { Component } from "react";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import ProductList from "./../../components/ProductList/ProductList";
 import { connect } from "react-redux";
-import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
 import {
   actDeleteProductRequestAPI,
@@ -38,15 +37,7 @@ class ProductListPage extends Component {
     // });
     this.props.fetchDeleteProduct(id);
   };
-  findIndexById = (products, id) => {
-    var result = -1;
-    products.forEach((product, index) => {
-      if (product.id === id) {
-        result = index;
-      }
-    });
-    return result;
-  };
+
   render() {
     var { products } = this.props;
     console.log(products);

@@ -23,9 +23,21 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var initialState = [];
 
+var findIndexById = function findIndexById(products, id) {
+  var result = -1;
+  products.forEach(function (product, index) {
+    if (product.id === id) {
+      result = index;
+    }
+  });
+  return result;
+};
+
 var products = function products() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  var index = -1;
+  var id = action.id;
 
   switch (action.type) {
     case Types.FETCH_PRODUCTS:
@@ -34,8 +46,10 @@ var products = function products() {
       return _toConsumableArray(state);
 
     case Types.DELETE_PRODUCT:
-      console.log(action);
-      return state;
+      console.log(action.id);
+      index = findIndexById(state, id);
+      state.splice(index, 1);
+      return _toConsumableArray(state);
 
     default:
       return _toConsumableArray(state);
