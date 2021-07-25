@@ -1,13 +1,11 @@
 import { Component } from "react";
-import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   actAddProductRequestAPI,
-  actGetProduct,
   actGetProductRequestAPI,
+  actUpdateProductRequestAPI,
 } from "./../../actions/index";
-
 class ProductActionPage extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +26,7 @@ class ProductActionPage extends Component {
   };
   onHandleSubmit = (event) => {
     var { id, txtName, txtPrice, chkStatus } = this.state;
-    var { history, fetchAddProduct } = this.props;
+    var { history, fetchAddProduct, fetchUpdateProduct } = this.props;
     var product = {
       id: id,
       name: txtName,
@@ -38,43 +36,34 @@ class ProductActionPage extends Component {
     event.preventDefault();
     if (id) {
       console.log("update ban oi!");
-      callApi(`products/${id}`, "PUT", {
-        name: txtName,
-        price: txtPrice,
-        chkStatus: chkStatus,
-      }).then((res) => {
-        history.goBack();
-      });
+      fetchUpdateProduct(product);
     } else {
-      // callApi("products", "POST", {
-      //   name: txtName,
-      //   price: txtPrice,
-      //   chkStatus: chkStatus,
-      // }).then((res) => {
-      //   console.log(res.data);
-      //   history.goBack();
-      // });
       fetchAddProduct(product);
       console.log(product);
-
-      history.goBack();
     }
+    history.goBack();
   };
   componentDidMount() {
-    var { match } = this.props;
+    console.log("componentDidMount");
+
+    var { match, fetchEditProduct } = this.props;
     if (match) {
       var id = match.params.id;
-      // callApi(`products/${id}`, "GET", null).then((res) => {
-      //   console.log(res.data);
-      //   var { data } = res;
-      //   this.setState({
-      //     id: data.id,
-      //     txtName: data.name,
-      //     txtPrice: data.price,
-      //     chkStatus: data.chkStatus,
-      //   });
-      // });
-      this.props.fetchEditProduct(id);
+      fetchEditProduct(id);
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps");
+    if (nextProps && nextProps.itemEditing) {
+      console.log(nextProps);
+      var { itemEditing } = nextProps;
+      console.log(itemEditing);
+      this.setState({
+        id: itemEditing.id,
+        txtName: itemEditing.name,
+        txtPrice: itemEditing.price,
+        chkStatus: itemEditing.status,
+      });
     }
   }
   render() {
@@ -92,7 +81,7 @@ class ProductActionPage extends Component {
               <input
                 type="text"
                 name="txtName"
-                value={txtName}
+                value={txtName || ""}
                 onChange={this.onHandleChange}
                 required
               />
@@ -105,7 +94,7 @@ class ProductActionPage extends Component {
               <input
                 type="number"
                 name="txtPrice"
-                value={txtPrice}
+                value={txtPrice || ""}
                 onChange={this.onHandleChange}
                 required
               />
@@ -118,7 +107,7 @@ class ProductActionPage extends Component {
                 type="checkbox"
                 name="chkStatus"
                 className="wskCheckbox status-add "
-                value={chkStatus}
+                value={chkStatus || ""}
                 onChange={this.onHandleChange}
                 checked={chkStatus}
               />
@@ -155,7 +144,9 @@ class ProductActionPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    itemEditing: state.itemEditing,
+  };
 };
 //Save on store
 const mapDispatchToProps = (dispatch, props) => {
@@ -166,6 +157,9 @@ const mapDispatchToProps = (dispatch, props) => {
     fetchEditProduct: (id) => {
       dispatch(actGetProductRequestAPI(id));
     },
+    fetchUpdateProduct: (product) => {
+      dispatch(actUpdateProductRequestAPI(product));
+    },
   };
 };
-export default connect(null, mapDispatchToProps)(ProductActionPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductActionPage);

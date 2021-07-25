@@ -65,3 +65,25 @@ export const actGetProduct = (product) => {
     product,
   };
 };
+
+// Update product
+export const actUpdateProductRequestAPI = (product) => {
+  return (dispatch) => {
+    return callApi(`products/${product.id}`, "PUT", product).then((res) => {
+      dispatch(actUpdateProduct(res.data));
+    });
+  };
+};
+//Get product in store
+export const actUpdateProduct = (product) => {
+  return {
+    type: Types.UPDATE_PRODUCT,
+    product,
+  };
+};
+
+export const TOGGLE_STATUS = () => {
+    return {
+      type: Types.TOGGLE_STATUS,
+    };
+  };

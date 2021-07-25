@@ -5,7 +5,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.actGetProduct = exports.actGetProductRequestAPI = exports.actAddProduct = exports.actAddProductRequestAPI = exports.actDeleteProductRequestAPI = exports.actDeleteProduct = exports.actFetchProducts = exports.actFetchProductsRequestAPI = void 0;
+exports.TOGGLE_STATUS = exports.actUpdateProduct = exports.actUpdateProductRequestAPI = exports.actGetProduct = exports.actGetProductRequestAPI = exports.actAddProduct = exports.actAddProductRequestAPI = exports.actDeleteProductRequestAPI = exports.actDeleteProduct = exports.actFetchProducts = exports.actFetchProductsRequestAPI = void 0;
 
 var Types = _interopRequireWildcard(require("./../constants/ActionTypes"));
 
@@ -94,6 +94,35 @@ var actGetProduct = function actGetProduct(product) {
     type: Types.EDIT_PRODUCT,
     product: product
   };
-};
+}; // Update product
+
 
 exports.actGetProduct = actGetProduct;
+
+var actUpdateProductRequestAPI = function actUpdateProductRequestAPI(product) {
+  return function (dispatch) {
+    return (0, _apiCaller["default"])("products/".concat(product.id), "PUT", product).then(function (res) {
+      dispatch(actUpdateProduct(res.data));
+    });
+  };
+}; //Get product in store
+
+
+exports.actUpdateProductRequestAPI = actUpdateProductRequestAPI;
+
+var actUpdateProduct = function actUpdateProduct(product) {
+  return {
+    type: Types.UPDATE_PRODUCT,
+    product: product
+  };
+};
+
+exports.actUpdateProduct = actUpdateProduct;
+
+var TOGGLE_STATUS = function TOGGLE_STATUS() {
+  return {
+    type: Types.TOGGLE_STATUS
+  };
+};
+
+exports.TOGGLE_STATUS = TOGGLE_STATUS;

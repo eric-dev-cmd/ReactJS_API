@@ -10,6 +10,10 @@ class ProductItem extends Component {
       onHandleDelete(id);
     }
   };
+  fetchUpdateStatus = () => {
+    var { fetchUpdateStatus } = this.props;
+    fetchUpdateStatus();
+  };
   render() {
     var { product, index } = this.props;
     console.log(product);
@@ -26,7 +30,9 @@ class ProductItem extends Component {
         <td>{product.name}</td>
         <td>{product.price}</td>
         <td>
-          <span className={statusClass}>{statusName}</span>
+          <span className={statusClass} onClick={this.onSetUpdateStatus}>
+            {statusName}
+          </span>
         </td>
         <td>
           {" "}

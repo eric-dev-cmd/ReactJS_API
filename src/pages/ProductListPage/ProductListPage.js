@@ -23,7 +23,9 @@ class ProductListPage extends Component {
   onHandleDelete = (id) => {
     this.props.fetchDeleteProduct(id);
   };
-
+  fetchUpdateStatus = () => {
+    this.props.fetchUpdateStatus();
+  };
   render() {
     var { products } = this.props;
     // console.log(products);
@@ -77,6 +79,7 @@ class ProductListPage extends Component {
 const mapStateToProps = (state) => {
   return {
     products: state.products,
+    status: state.status,
   };
 };
 //Save on store

@@ -21,46 +21,15 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-var initialState = [];
+var initialState = false;
 
-var findIndexById = function findIndexById(products, id) {
-  var result = -1;
-  products.forEach(function (product, index) {
-    if (product.id === id) {
-      result = index;
-    }
-  });
-  return result;
-};
-
-var products = function products() {
+var myReducer = function myReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  var index = -1;
-  var id = action.id,
-      product = action.product;
 
   switch (action.type) {
-    case Types.FETCH_PRODUCTS:
+    case Types.TOGGLE_STATUS:
       console.log(action);
-      state = action.products;
-      return _toConsumableArray(state);
-
-    case Types.DELETE_PRODUCT:
-      console.log(action.id);
-      index = findIndexById(state, id);
-      state.splice(index, 1);
-      return _toConsumableArray(state);
-
-    case Types.ADD_PRODUCT:
-      console.log(action);
-      state.push(action.product);
-      return _toConsumableArray(state);
-
-    case Types.UPDATE_PRODUCT:
-      console.log(action);
-      index = findIndexById(state, product.id);
-      state[index] = product;
       return _toConsumableArray(state);
 
     default:
@@ -68,5 +37,5 @@ var products = function products() {
   }
 };
 
-var _default = products;
+var _default = myReducer;
 exports["default"] = _default;
