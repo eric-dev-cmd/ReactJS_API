@@ -21,26 +21,12 @@ class ProductListPage extends Component {
     fetchAllProducts();
   }
   onHandleDelete = (id) => {
-    // var { products } = this.state;
-    // console.log(id);
-    // callApi(`products/${id}`, "DELETE", null).then((res) => {
-    //   console.log(res);
-    //   if (res.status === 200) {
-    //     var index = this.findIndexById(products, id);
-    //     if (index !== -1) {
-    //       products.splice(index, 1);
-    //       this.setState({
-    //         products: products,
-    //       });
-    //     }
-    //   }
-    // });
     this.props.fetchDeleteProduct(id);
   };
 
   render() {
     var { products } = this.props;
-    console.log(products);
+    // console.log(products);
     // console.log("render");
     // var { products } = this.props;
 

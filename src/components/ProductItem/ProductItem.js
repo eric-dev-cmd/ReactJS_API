@@ -12,12 +12,11 @@ class ProductItem extends Component {
   };
   render() {
     var { product, index } = this.props;
-    // console.log(product);
+    console.log(product);
     // console.log(product.status);
-    var statusName =
-      product.chkStatus === true ? "stocking" : "out of stocking";
+    var statusName = product.status === true ? "stocking" : "out of stocking";
     var statusClass =
-      product.chkStatus === true ? "badge bg-danger" : "badge bg-secondary";
+      product.status === true ? "badge bg-danger" : "badge bg-secondary";
     // console.log(statusClass);
 
     return (

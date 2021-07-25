@@ -1,15 +1,16 @@
 import { Component } from "react";
 import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
-// import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { actAddProductRequestAPI } from "./../../actions/index";
 
 class ProductActionPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: "",
-      txtName: "",
-      txtPrice: "",
+      txtName: "Test 1",
+      txtPrice: "123",
       chkStatus: false,
     };
   }
@@ -23,7 +24,13 @@ class ProductActionPage extends Component {
   };
   onHandleSubmit = (event) => {
     var { id, txtName, txtPrice, chkStatus } = this.state;
-    var { history } = this.props;
+    var { history, fetchAddProduct } = this.props;
+    var product = {
+      id: id,
+      name: txtName,
+      price: txtPrice,
+      status: chkStatus,
+    };
     event.preventDefault();
     if (id) {
       console.log("update ban oi!");
@@ -32,19 +39,21 @@ class ProductActionPage extends Component {
         price: txtPrice,
         chkStatus: chkStatus,
       }).then((res) => {
-        console.log(res.data);
-
         history.goBack();
       });
     } else {
-      callApi("products", "POST", {
-        name: txtName,
-        price: txtPrice,
-        chkStatus: chkStatus,
-      }).then((res) => {
-        console.log(res.data);
-        history.goBack();
-      });
+      // callApi("products", "POST", {
+      //   name: txtName,
+      //   price: txtPrice,
+      //   chkStatus: chkStatus,
+      // }).then((res) => {
+      //   console.log(res.data);
+      //   history.goBack();
+      // });
+      fetchAddProduct(product);
+      console.log(product);
+
+      history.goBack();
     }
   };
   componentDidMount() {
@@ -140,4 +149,15 @@ class ProductActionPage extends Component {
   }
 }
 
-export default ProductActionPage;
+const mapStateToProps = (state) => {
+  return {};
+};
+//Save on store
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    fetchAddProduct: (product) => {
+      dispatch(actAddProductRequestAPI(product));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(ProductActionPage);

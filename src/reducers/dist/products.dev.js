@@ -51,6 +51,11 @@ var products = function products() {
       state.splice(index, 1);
       return _toConsumableArray(state);
 
+    case Types.ADD_PRODUCT:
+      console.log(action);
+      state.push(action.product);
+      return _toConsumableArray(state);
+
     default:
       return _toConsumableArray(state);
   }

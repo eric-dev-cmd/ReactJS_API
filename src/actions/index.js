@@ -32,3 +32,19 @@ export const actDeleteProductRequestAPI = (id) => {
     });
   };
 };
+
+// Add product
+
+export const actAddProductRequestAPI = (product) => {
+  return (dispatch) => {
+    return callApi("products", "POST", product).then((res) => {
+      dispatch(actAddProduct(res.data));
+    });
+  };
+};
+export const actAddProduct = (product) => {
+  return {
+    type: Types.ADD_PRODUCT,
+    product,
+  };
+};

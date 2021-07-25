@@ -22,6 +22,10 @@ const products = (state = initialState, action) => {
       index = findIndexById(state, id);
       state.splice(index, 1);
       return [...state];
+    case Types.ADD_PRODUCT:
+      console.log(action);
+      state.push(action.product);
+      return [...state];
     default:
       return [...state];
   }
