@@ -5,7 +5,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.actFetchProducts = exports.actFetchProductsRequestAPI = void 0;
+exports.actDeleteProductRequestAPI = exports.actDeleteProduct = exports.actFetchProducts = exports.actFetchProductsRequestAPI = void 0;
 
 var Types = _interopRequireWildcard(require("./../constants/ActionTypes"));
 
@@ -17,6 +17,7 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+//Get all data
 var actFetchProductsRequestAPI = function actFetchProductsRequestAPI() {
   return function (dispatch) {
     return (0, _apiCaller["default"])("products", "GET", null).then(function (res) {
@@ -32,6 +33,26 @@ var actFetchProducts = function actFetchProducts(products) {
     type: Types.FETCH_PRODUCTS,
     products: products
   };
-};
+}; // Delete product on api && redux => Delete on server, then delete tren store
+
 
 exports.actFetchProducts = actFetchProducts;
+
+var actDeleteProduct = function actDeleteProduct(id) {
+  return {
+    type: Types.DELETE_PRODUCT,
+    id: id
+  };
+};
+
+exports.actDeleteProduct = actDeleteProduct;
+
+var actDeleteProductRequestAPI = function actDeleteProductRequestAPI(id) {
+  return function (dispatch) {
+    return (0, _apiCaller["default"])("products/".concat(id), "DELETE", null).then(function (res) {
+      dispatch(actDeleteProduct(id));
+    });
+  };
+};
+
+exports.actDeleteProductRequestAPI = actDeleteProductRequestAPI;

@@ -4,12 +4,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import myReducers from "./reducers/index";
-import { createStore } from "redux";
+import { applyMiddleware, createStore, compose } from "redux";
+import thunk from "redux-thunk";
 
-const store = createStore(
-  myReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const enhancers = [
+  applyMiddleware(thunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+];
+const store = createStore(myReducers, compose(...enhancers));
 
 ReactDOM.render(
   <Provider store={store}>

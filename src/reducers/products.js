@@ -6,6 +6,9 @@ const products = (state = initialState, action) => {
       console.log(action);
       state = action.products;
       return [...state];
+    case Types.DELETE_PRODUCT:
+      console.log(action);
+      return state;
     default:
       return [...state];
   }

@@ -33,6 +33,10 @@ var products = function products() {
       state = action.products;
       return _toConsumableArray(state);
 
+    case Types.DELETE_PRODUCT:
+      console.log(action);
+      return state;
+
     default:
       return _toConsumableArray(state);
   }

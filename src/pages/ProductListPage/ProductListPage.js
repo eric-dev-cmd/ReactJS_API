@@ -4,7 +4,10 @@ import ProductList from "./../../components/ProductList/ProductList";
 import { connect } from "react-redux";
 import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
-import { actFetchProductsRequestAPI } from "./../../actions/index";
+import {
+  actDeleteProductRequestAPI,
+  actFetchProductsRequestAPI,
+} from "./../../actions/index";
 
 class ProductListPage extends Component {
   constructor(props) {
@@ -19,20 +22,21 @@ class ProductListPage extends Component {
     fetchAllProducts();
   }
   onHandleDelete = (id) => {
-    var { products } = this.state;
-    console.log(id);
-    callApi(`products/${id}`, "DELETE", null).then((res) => {
-      console.log(res);
-      if (res.status === 200) {
-        var index = this.findIndexById(products, id);
-        if (index !== -1) {
-          products.splice(index, 1);
-          this.setState({
-            products: products,
-          });
-        }
-      }
-    });
+    // var { products } = this.state;
+    // console.log(id);
+    // callApi(`products/${id}`, "DELETE", null).then((res) => {
+    //   console.log(res);
+    //   if (res.status === 200) {
+    //     var index = this.findIndexById(products, id);
+    //     if (index !== -1) {
+    //       products.splice(index, 1);
+    //       this.setState({
+    //         products: products,
+    //       });
+    //     }
+    //   }
+    // });
+    this.props.fetchDeleteProduct(id);
   };
   findIndexById = (products, id) => {
     var result = -1;
@@ -103,6 +107,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     fetchAllProducts: () => {
       dispatch(actFetchProductsRequestAPI());
+    },
+    fetchDeleteProduct: (id) => {
+      dispatch(actDeleteProductRequestAPI(id));
     },
   };
 };
